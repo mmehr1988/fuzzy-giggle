@@ -12,6 +12,7 @@ const {
   GraphQLString,
   GraphQLSchema,
   GraphQLList,
+  GraphQLNonNull,
 } = require('graphql');
 
 // ======================================
@@ -101,8 +102,40 @@ const RootQuery = new GraphQLObjectType({
 });
 
 // ======================================
-// [3] - Export SCHEMA
+// [3] MUTATIONS
+// ======================================
+
+const mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    addClient: {
+      type: ClientType,
+      args: {
+        // GraphQLNonNull is used to make sure that the client name is required
+        name: { type: GraphQLNonNull(GraphQLString) },
+        email: { type: GraphQLNonNull(GraphQLString) },
+        phone: { type: GraphQLNonNull(GraphQLString) },
+      },
+      resolve(parent, args) {
+        // Creating a new client using the mongoose model
+        // We are passing in the key values that come from our graphql query
+
+        const client = new Client({
+          name: args.name,
+          email: args.email,
+          phone: args.phone,
+        });
+        // Save the return data to the database
+        return client.save();
+      },
+    },
+  },
+});
+
+// ======================================
+// [4] EXPORT SCHEMA
 // ======================================
 module.exports = new GraphQLSchema({
   query: RootQuery,
+  mutation,
 });
