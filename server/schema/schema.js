@@ -4,6 +4,10 @@
 // Brining in the sample Data & desctructuring
 const { projects, clients } = require('../sampleData.js');
 
+// Mongoose Models
+const Project = require('../models/Project');
+const Client = require('../models/Client');
+
 // ======================================
 // GRAPHQL
 // ======================================
@@ -25,7 +29,6 @@ const {
 // [1] TYPE | CLIENT: First setup the information that will compose a client
 const ClientType = new GraphQLObjectType({
   name: 'Client',
-  // Fields = a function that returns an object
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
@@ -36,7 +39,6 @@ const ClientType = new GraphQLObjectType({
 
 const ProjectType = new GraphQLObjectType({
   name: 'Project',
-  // Fields = a function that returns an object
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
@@ -46,7 +48,7 @@ const ProjectType = new GraphQLObjectType({
     client: {
       type: ClientType,
       resolve(parent, args) {
-        return clients.find((client) => client.id === parent.clientId);
+        return Client.findById(parent.clientId);
       },
     },
   }),
@@ -57,40 +59,51 @@ const ProjectType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
+    // ======================================
     // QUERY: ALL PROJECTS
+    // ======================================
     projects: {
       type: new GraphQLList(ProjectType),
       resolve(parent, args) {
-        return projects;
+        // The find method will return an array of all the projects in the projects array
+        return Project.find();
       },
     },
-
+    // ======================================
     // QUERY: 1 PROJECT
+    // ======================================
     project: {
       type: ProjectType,
       //   What information is required to pull information for the specific client
       args: { id: { type: GraphQLID } },
       // Our data being returned in something that is called a resolver.
       resolve(parent, args) {
-        return projects.find((project) => project.id === args.id);
+        // The findById method will return a single project based on the id that is passed in
+        return Project.findById(args.id);
       },
     },
+    // ======================================
     // QUERY: ALL CLIENTS
+    // ======================================
     clients: {
       type: new GraphQLList(ClientType),
       resolve(parent, args) {
-        return clients;
+        // The find method will return an array of all the clients in the clients array
+        return Client.find();
       },
     },
 
+    // ======================================
     // QUERY: 1 CLIENT
+    // ======================================
     client: {
       type: ClientType,
       //   What information is required to pull information for the specific client
       args: { id: { type: GraphQLID } },
       // Our data being returned in something that is called a resolver.
       resolve(parent, args) {
-        return clients.find((client) => client.id === args.id);
+        // The findById method will return a single client based on the id that is passed in
+        return Client.findById(args.id);
       },
     },
   },
