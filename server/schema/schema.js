@@ -16,6 +16,7 @@ const {
   GraphQLID,
   GraphQLString,
   GraphQLSchema,
+  GraphQLList,
 } = require('graphql');
 
 // ======================================
@@ -33,11 +34,49 @@ const ClientType = new GraphQLObjectType({
   }),
 });
 
+const ProjectType = new GraphQLObjectType({
+  name: 'Project',
+  // Fields = a function that returns an object
+  fields: () => ({
+    id: { type: GraphQLID },
+    name: { type: GraphQLString },
+    description: { type: GraphQLString },
+    status: { type: GraphQLString },
+  }),
+});
+
 // [2] ROOT QUERY OBJECT | CLIENT: The root query object will allow us to pull data for a client based on the fields we setup above.
 // Example: query a client based on their "id"
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
+    // QUERY: ALL PROJECTS
+    projects: {
+      type: new GraphQLList(ProjectType),
+      resolve(parent, args) {
+        return projects;
+      },
+    },
+
+    // QUERY: 1 PROJECT
+    project: {
+      type: ProjectType,
+      //   What information is required to pull information for the specific client
+      args: { id: { type: GraphQLID } },
+      // Our data being returned in something that is called a resolver.
+      resolve(parent, args) {
+        return projects.find((project) => project.id === args.id);
+      },
+    },
+    // QUERY: ALL CLIENTS
+    clients: {
+      type: new GraphQLList(ClientType),
+      resolve(parent, args) {
+        return clients;
+      },
+    },
+
+    // QUERY: 1 CLIENT
     client: {
       type: ClientType,
       //   What information is required to pull information for the specific client
