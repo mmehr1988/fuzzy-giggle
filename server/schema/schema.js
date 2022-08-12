@@ -3,12 +3,9 @@ const Project = require('../models/Project');
 const Client = require('../models/Client');
 
 // ======================================
-// GRAPHQL
+// [1] GRAPHQL
 // ======================================
-// What we want to use from Graphql
-// [1] GraphQLObjectType: When we have different resources like "projects, clients, users, blog posts",
-//     you want to create a type for all of those
-
+// Bring in graphql
 const {
   GraphQLObjectType,
   GraphQLID,
@@ -18,9 +15,9 @@ const {
 } = require('graphql');
 
 // ======================================
-// TYPES & QUERIES
+// [1] TYPES & QUERIES
 // ======================================
-// [1] TYPE | CLIENT: First setup the information that will compose a client
+// [A] TYPE | CLIENT: First setup the information that will compose a client
 const ClientType = new GraphQLObjectType({
   name: 'Client',
   fields: () => ({
@@ -48,7 +45,7 @@ const ProjectType = new GraphQLObjectType({
   }),
 });
 
-// [2] ROOT QUERY OBJECT | CLIENT: The root query object will allow us to pull data for a client based on the fields we setup above.
+// [B] ROOT QUERY OBJECT | CLIENT: The root query object will allow us to pull data for a client based on the fields we setup above.
 // Example: query a client based on their "id"
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -103,11 +100,9 @@ const RootQuery = new GraphQLObjectType({
   },
 });
 
-// [3] USE Query
-// [A] - Create SCHEMA
-//       SCHEMA: The schema is the top level query object that will allow us to query for data.
-
-// [B] - Export SCHEMA
+// ======================================
+// [3] - Export SCHEMA
+// ======================================
 module.exports = new GraphQLSchema({
   query: RootQuery,
 });
