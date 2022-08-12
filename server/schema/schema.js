@@ -13,6 +13,7 @@ const {
   GraphQLSchema,
   GraphQLList,
   GraphQLNonNull,
+  GraphQLEnumType,
 } = require('graphql');
 
 // ======================================
@@ -120,7 +121,6 @@ const mutation = new GraphQLObjectType({
       resolve(parent, args) {
         // Creating a new client using the mongoose model
         // We are passing in the key values that come from our graphql query
-
         const client = new Client({
           name: args.name,
           email: args.email,
@@ -139,6 +139,86 @@ const mutation = new GraphQLObjectType({
       resolve(parent, args) {
         // Find the client by the id and then delete it
         return Client.findByIdAndDelete(args.id);
+      },
+    },
+    // Add a project
+    addProject: {
+      type: ProjectType,
+      args: {
+        name: { type: GraphQLNonNull(GraphQLString) },
+        description: { type: GraphQLNonNull(GraphQLString) },
+        status: {
+          // GraphQLEnumType is used to make sure that the status is either "Not Started" or "In Progress" or "Completed" with a default value of "Not Started"
+          type: new GraphQLEnumType({
+            // name must be UNIQUE
+            name: 'ProjectStatus',
+            values: {
+              new: { value: 'Not Started' },
+              progress: { value: 'In Progress' },
+              completed: { value: 'Completed' },
+            },
+          }),
+          defaultValue: 'Not Started',
+        },
+        clientId: { type: GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        // Creating a new project using the mongoose model
+        // We are passing in the key values that come from our graphql query
+        const project = new Project({
+          name: args.name,
+          description: args.description,
+          status: args.status,
+          clientId: args.clientId,
+        });
+        // Save the return data to the database
+        return project.save();
+      },
+    },
+    // Delete a project
+    deleteProject: {
+      type: ProjectType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        // Find the project by the id and then delete it
+        return Project.findByIdAndDelete(args.id);
+      },
+    },
+    // Update a project
+    updateProject: {
+      type: ProjectType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+        name: { type: GraphQLString },
+        description: { type: GraphQLString },
+        status: {
+          // GraphQLEnumType is used to make sure that the status is either "Not Started" or "In Progress" or "Completed" with a default value of "Not Started"
+          type: new GraphQLEnumType({
+            // name must be UNIQUE
+            name: 'ProjectStatusUpdate',
+            values: {
+              new: { value: 'Not Started' },
+              progress: { value: 'In Progress' },
+              completed: { value: 'Completed' },
+            },
+          }),
+        },
+      },
+      resolve(parent, args) {
+        // Find the project by the id and then update it
+        return Project.findByIdAndUpdate(
+          args.id,
+          {
+            $set: {
+              name: args.name,
+              description: args.description,
+              status: args.status,
+            },
+          },
+          { new: true }
+        );
       },
     },
   },
