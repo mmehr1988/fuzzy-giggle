@@ -1,9 +1,3 @@
-// ======================================
-// SAMPLE DATA
-// ======================================
-// Brining in the sample Data & desctructuring
-const { projects, clients } = require('../sampleData.js');
-
 // Mongoose Models
 const Project = require('../models/Project');
 const Client = require('../models/Client');
