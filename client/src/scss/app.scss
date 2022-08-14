@@ -1,0 +1,61 @@
+// IMPORTANT: Override default variables before the import
+@import './variables/variables.scss';
+
+// Import Bootstrap and its default variables
+// You can prefix paths with ~, as displayed above, to resolve modules from node_modules
+@import '~bootstrap/scss/bootstrap.scss';
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+// ======================================
+// CLASSES
+// ======================================
+
+.navbar-brand {
+  color: $brandColor;
+}
+
+.navbar-brand img {
+  width: 30px;
+  margin-right: 10px;
+}
+
+.btn {
+  font-size: 15px;
+}
+
+.btn-primary,
+.bg-primary {
+  background-color: $brandColor !important;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: $brandColor;
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background-color: $btnSecondaryColor;
+}
+
+.btn-secondary:hover {
+  background-color: $btnSecondaryColor;
+  opacity: 0.9;
+}
+
+.icon {
+  margin-right: 5px;
+}

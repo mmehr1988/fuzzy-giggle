@@ -1,6 +1,7 @@
 // Create express server
 const express = require('express');
 const colors = require('colors');
+const cors = require('cors');
 
 // ======================================
 // PORT SETUP
@@ -20,6 +21,9 @@ const app = express();
 
 // Connect to the database
 connectDB();
+
+// Cors is a middleware that allows us to access our server from any other domain (client side)
+app.use(cors());
 
 // Create a USE
 // https://graphql.org/graphql-js/running-an-express-graphql-server/
