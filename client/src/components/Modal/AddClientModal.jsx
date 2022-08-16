@@ -33,10 +33,13 @@ const debounceCustom = _.debounce((callback) => {
 // =============================================
 
 const schema = yup.object().shape({
-  firstName: yup.string().required(),
-  lastName: yup.string().required(),
-  email: yup.string().email('Invalid email address').required(),
-  phone: yup.string().required(),
+  firstName: yup.string().required('First name is required'),
+  lastName: yup.string().required('Last name is required'),
+  email: yup
+    .string()
+    .email('Invalid email address')
+    .required('Email is required'),
+  phone: yup.string().required('Phone number is required'),
 });
 
 // IMPORTANT For both Reducer and Form Validation
