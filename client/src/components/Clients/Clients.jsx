@@ -18,25 +18,35 @@ const Clients = () => {
   if (error) return <p>Something Went Wrong</p>;
 
   return (
-    <>
-      {!loading && !error && (
-        <Table striped bordered hover size='sm' className='mt-3'>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.clients.map((client) => (
-              <ClientRow key={client.id} client={client} />
-            ))}
-          </tbody>
-        </Table>
-      )}
-    </>
+    !loading &&
+    !error && (
+      <Table striped bordered hover size='sm' className='mt-3'>
+        <thead>
+          <tr>
+            <th>
+              <span>First Name</span>
+            </th>
+            <th>
+              <span>Last Name</span>
+            </th>
+            <th>
+              <span>Email</span>
+            </th>
+            <th>
+              <span>Phone</span>
+            </th>
+            <th className='app__formColumns delete'>
+              <span>Delete</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.clients.map((client) => (
+            <ClientRow key={client.id} client={client} />
+          ))}
+        </tbody>
+      </Table>
+    )
   );
 };
 

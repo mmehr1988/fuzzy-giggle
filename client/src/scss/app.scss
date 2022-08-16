@@ -23,6 +23,12 @@ code {
 // CLASSES
 // ======================================
 
+button:disabled {
+  --bs-btn-disabled-bg: grey;
+  background-color: var(--bs-btn-disabled-bg);
+  cursor: not-allowed;
+}
+
 .navbar-brand {
   color: $brandColor;
 }
@@ -33,13 +39,13 @@ code {
 }
 
 .btn {
-  font-size: 15px;
+  font-size: 16px;
+  border: none;
 }
 
 .btn-primary,
 .bg-primary {
-  background-color: $brandColor !important;
-  border: none;
+  background-color: $brandColor;
 }
 
 .btn-primary:hover {
@@ -58,4 +64,23 @@ code {
 
 .icon {
   margin-right: 5px;
+}
+
+// ======================================
+// FORMS
+// ======================================
+
+td,
+th {
+  span {
+    margin-left: 8px;
+  }
+}
+
+.app__formColumns.delete {
+  text-align: center;
+
+  span {
+    margin-left: 0px;
+  }
 }

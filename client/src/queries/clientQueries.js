@@ -4,7 +4,8 @@ export const GET_CLIENTS = gql`
   query getClients {
     clients {
       id
-      name
+      firstName
+      lastName
       email
       phone
     }

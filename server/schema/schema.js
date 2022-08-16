@@ -24,7 +24,8 @@ const ClientType = new GraphQLObjectType({
   name: 'Client',
   fields: () => ({
     id: { type: GraphQLID },
-    name: { type: GraphQLString },
+    firstName: { type: GraphQLString },
+    lastName: { type: GraphQLString },
     email: { type: GraphQLString },
     phone: { type: GraphQLString },
   }),
@@ -34,7 +35,8 @@ const ProjectType = new GraphQLObjectType({
   name: 'Project',
   fields: () => ({
     id: { type: GraphQLID },
-    name: { type: GraphQLString },
+    firstName: { type: GraphQLString },
+    lastName: { type: GraphQLString },
     description: { type: GraphQLString },
     status: { type: GraphQLString },
     // IMPORTANT: To add relationships between the two types
@@ -114,7 +116,8 @@ const mutation = new GraphQLObjectType({
       type: ClientType,
       args: {
         // GraphQLNonNull is used to make sure that the client name is required
-        name: { type: GraphQLNonNull(GraphQLString) },
+        firstName: { type: GraphQLNonNull(GraphQLString) },
+        lastName: { type: GraphQLNonNull(GraphQLString) },
         email: { type: GraphQLNonNull(GraphQLString) },
         phone: { type: GraphQLNonNull(GraphQLString) },
       },
@@ -122,7 +125,8 @@ const mutation = new GraphQLObjectType({
         // Creating a new client using the mongoose model
         // We are passing in the key values that come from our graphql query
         const client = new Client({
-          name: args.name,
+          firstName: args.firstName,
+          lastName: args.lastName,
           email: args.email,
           phone: args.phone,
         });
@@ -145,7 +149,8 @@ const mutation = new GraphQLObjectType({
     addProject: {
       type: ProjectType,
       args: {
-        name: { type: GraphQLNonNull(GraphQLString) },
+        firstName: { type: GraphQLNonNull(GraphQLString) },
+        lastName: { type: GraphQLNonNull(GraphQLString) },
         description: { type: GraphQLNonNull(GraphQLString) },
         status: {
           // GraphQLEnumType is used to make sure that the status is either "Not Started" or "In Progress" or "Completed" with a default value of "Not Started"
@@ -166,7 +171,8 @@ const mutation = new GraphQLObjectType({
         // Creating a new project using the mongoose model
         // We are passing in the key values that come from our graphql query
         const project = new Project({
-          name: args.name,
+          firstName: args.firstName,
+          lastName: args.lastName,
           description: args.description,
           status: args.status,
           clientId: args.clientId,
@@ -191,7 +197,8 @@ const mutation = new GraphQLObjectType({
       type: ProjectType,
       args: {
         id: { type: GraphQLNonNull(GraphQLID) },
-        name: { type: GraphQLString },
+        firstName: { type: GraphQLString },
+        lastName: { type: GraphQLString },
         description: { type: GraphQLString },
         status: {
           // GraphQLEnumType is used to make sure that the status is either "Not Started" or "In Progress" or "Completed" with a default value of "Not Started"
@@ -212,7 +219,8 @@ const mutation = new GraphQLObjectType({
           args.id,
           {
             $set: {
-              name: args.name,
+              firstName: args.firstName,
+              lastName: args.lastName,
               description: args.description,
               status: args.status,
             },
