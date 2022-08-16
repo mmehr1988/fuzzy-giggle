@@ -35,8 +35,7 @@ const ProjectType = new GraphQLObjectType({
   name: 'Project',
   fields: () => ({
     id: { type: GraphQLID },
-    firstName: { type: GraphQLString },
-    lastName: { type: GraphQLString },
+    name: { type: GraphQLString },
     description: { type: GraphQLString },
     status: { type: GraphQLString },
     // IMPORTANT: To add relationships between the two types
@@ -149,8 +148,7 @@ const mutation = new GraphQLObjectType({
     addProject: {
       type: ProjectType,
       args: {
-        firstName: { type: GraphQLNonNull(GraphQLString) },
-        lastName: { type: GraphQLNonNull(GraphQLString) },
+        name: { type: GraphQLNonNull(GraphQLString) },
         description: { type: GraphQLNonNull(GraphQLString) },
         status: {
           // GraphQLEnumType is used to make sure that the status is either "Not Started" or "In Progress" or "Completed" with a default value of "Not Started"
@@ -171,8 +169,7 @@ const mutation = new GraphQLObjectType({
         // Creating a new project using the mongoose model
         // We are passing in the key values that come from our graphql query
         const project = new Project({
-          firstName: args.firstName,
-          lastName: args.lastName,
+          name: args.name,
           description: args.description,
           status: args.status,
           clientId: args.clientId,
@@ -197,8 +194,7 @@ const mutation = new GraphQLObjectType({
       type: ProjectType,
       args: {
         id: { type: GraphQLNonNull(GraphQLID) },
-        firstName: { type: GraphQLString },
-        lastName: { type: GraphQLString },
+        name: { type: GraphQLString },
         description: { type: GraphQLString },
         status: {
           // GraphQLEnumType is used to make sure that the status is either "Not Started" or "In Progress" or "Completed" with a default value of "Not Started"
@@ -219,8 +215,7 @@ const mutation = new GraphQLObjectType({
           args.id,
           {
             $set: {
-              firstName: args.firstName,
-              lastName: args.lastName,
+              name: args.name,
               description: args.description,
               status: args.status,
             },
