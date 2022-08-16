@@ -17,12 +17,10 @@ const Projects = () => {
   if (loading) return <Loading />;
   if (error) return <p>Something Went Wrong</p>;
 
-  console.log(data);
-
   return (
     <>
       {data.projects.length > 0 ? (
-        <Row className='mt-3'>
+        <Row className='gx-3 gy-3'>
           {data.projects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
