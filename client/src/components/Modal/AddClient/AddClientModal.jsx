@@ -17,9 +17,10 @@ import _ from 'lodash';
 // ======================================
 // INTERNAL
 // ======================================
+
 import AddClientForm from './AddClientForm';
-import { ADD_CLIENT } from '../../mutations/clientMutations';
-import { GET_CLIENTS } from '../../queries/clientQueries';
+import { ADD_CLIENT } from '../../../mutations/clientMutations';
+import { GET_CLIENTS } from '../../../queries/clientQueries';
 
 // =============================================
 // LODASH DEBOUNCE
@@ -107,7 +108,7 @@ const AddClientModal = () => {
   const handleShow = () => setShow(true);
 
   // =============================================
-  // HANDLE | CHANGE CALLBACK
+  // FORMIK
   // =============================================
 
   const formik = useFormik({
