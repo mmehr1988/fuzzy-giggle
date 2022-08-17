@@ -1,106 +1,29 @@
 // ======================================
 // EXTERNAL
 // ======================================
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { useFormik } from 'formik';
-import * as yup from 'yup';
 
 import { FaList } from 'react-icons/fa';
 // Bootstrap
-import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-
-// lodash
-import _ from 'lodash';
 
 // ======================================
 // INTERNAL
 // ======================================
-
+import ModalForm from '../ModalForm';
 import AddProjectForm from './AddProjectForm';
 import { ADD_PROJECT } from '../../../mutations/projectMutations';
 import { GET_PROJECTS } from '../../../queries/projectQueries';
 import { GET_CLIENTS } from '../../../queries/clientQueries';
 
-// =============================================
-// LODASH DEBOUNCE
-// =============================================
-const debounceCustom = _.debounce((callback) => {
-  callback();
-}, 300);
-
-const lodashPick = (array, keys) => _.pick(array, keys);
-
-const lodashMergeFilterArray = (array, keys) => {
-  let newArray = [];
-
-  array.forEach((item) => {
-    const newObj = lodashPick(item, keys);
-
-    newArray.push({
-      id: newObj.id,
-      text: `${newObj.firstName} ${newObj.lastName}`,
-    });
-  });
-
-  return newArray;
-};
-
-// =============================================
-// INITIAL VALUES
-// =============================================
-
-const schema = yup.object().shape({
-  name: yup.string().required('Project name is required'),
-  status: yup.string(),
-  description: yup.string(),
-  clientId: yup.string().required('Client is required'),
-});
-
-// IMPORTANT For both Reducer and Form Validation
-// Setting default value for status
-const initialFormValues = {
-  name: '',
-  status: 'new',
-  description: '',
-  clientId: '',
-};
-
-// ======================================
-// FORM DATA
-// ======================================
-const formStructure = [
-  {
-    id: 'app__addProjectForm-name',
-    type: 'text',
-    name: 'name',
-    as: 'input',
-  },
-  {
-    id: 'app__addProjectForm-description',
-    type: 'text',
-    name: 'description',
-    as: 'input',
-  },
-  {
-    id: 'app__addProjectForm-status',
-    name: 'status',
-    as: 'select',
-    options: [
-      { value: 'new', text: 'Not Started' },
-      { value: 'progress', text: 'In Progress' },
-      { value: 'completed', text: 'Completed' },
-    ],
-  },
-  {
-    id: 'app__addProjectForm-client',
-    label: 'Client',
-    name: 'clientId',
-    as: 'select',
-    options: [{ text: 'Please select a client' }],
-  },
-];
+import { debounceCustom, lodashFilterArray } from '../../../lib/lodash';
+import {
+  ProjectFormInitialValues,
+  ProjectFormSchema,
+  ProjectFormStructure,
+} from './ProjectFormStructure';
 
 const AddProjectModal = () => {
   // ======================================
@@ -108,7 +31,7 @@ const AddProjectModal = () => {
   // ======================================
   const [show, setShow] = useState(false);
   const [clients, setClients] = useState([]);
-  const [structure, setStructure] = useState([]);
+  const [formStructure, setFormStructure] = useState([]);
 
   // ======================================
   // GRAPHQL
@@ -139,12 +62,12 @@ const AddProjectModal = () => {
       : alert('You must add a client first');
 
   // =============================================
-  // FORMIK
+  // HANDLE FORM SUBMIT | FORMIK
   // =============================================
 
   const formik = useFormik({
-    initialValues: initialFormValues,
-    validationSchema: schema,
+    initialValues: ProjectFormInitialValues,
+    validationSchema: ProjectFormSchema,
     onSubmit: (values) => {
       // Copy the values to the new object
       const formValues = values;
@@ -161,12 +84,14 @@ const AddProjectModal = () => {
       addProject({ variables: formValues });
 
       // Close the modal
-      debounceCustom(() => {
-        formik.handleReset();
-        handleClose();
-      });
+      debounceCustom(() => handleHide());
     },
   });
+
+  const handleHide = useCallback(() => {
+    formik.handleReset();
+    handleClose();
+  }, [formik]);
 
   // =============================================
   // USEFFECT
@@ -177,7 +102,7 @@ const AddProjectModal = () => {
     // Check if data is loaded
     if (data && data.clients.length > 0) {
       // When data is loaded, using lodash to filter the data for the specific fields we want.
-      const clients = lodashMergeFilterArray(data.clients, [
+      const clients = lodashFilterArray(data.clients, [
         'id',
         'firstName',
         'lastName',
@@ -192,15 +117,15 @@ const AddProjectModal = () => {
     // Check if client state is updated
     if (clients.length > 0) {
       // Copy the structure array
-      const structureArray = formStructure;
+      const structureArray = ProjectFormStructure;
 
-      //  Add the new client array to the structure array
+      // Add the new client array to the structure array
       structureArray.map((field) =>
         field.name === 'clientId' ? field.options.push(...clients) : field
       );
 
-      //  setStructure Array to the new structure array
-      setStructure(structureArray);
+      // setStructure Array to the new structure array
+      setFormStructure(structureArray);
     }
   }, [clients]);
 
@@ -214,26 +139,15 @@ const AddProjectModal = () => {
       </Button>
 
       {/* Only show the model when the client data is loaded with no error and the form structure has been updated with the client options */}
-      {!loading && !error && structure.length !== 0 && (
-        <Modal
-          show={show}
-          onHide={() => {
-            formik.handleReset();
-            handleClose();
-          }}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Add Project</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <AddProjectForm
-              formStructure={formStructure}
-              formik={formik}
-              className='app__addProjectForm'
-              handleClose={handleClose}
-            />
-          </Modal.Body>
-        </Modal>
+      {!loading && !error && formStructure.length !== 0 && (
+        <ModalForm show={show} onHide={handleHide} modalTitle='Add Project'>
+          <AddProjectForm
+            formStructure={formStructure}
+            formik={formik}
+            className='app__addProjectForm'
+            handleClose={handleClose}
+          />
+        </ModalForm>
       )}
     </>
   );

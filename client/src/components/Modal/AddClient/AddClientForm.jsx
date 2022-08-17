@@ -5,22 +5,23 @@
 import Form from 'react-bootstrap/Form';
 import Stack from 'react-bootstrap/Stack';
 import Button from 'react-bootstrap/Button';
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 
 // ======================================
 // LODASH
 // ======================================
-const camelLodash = (text) => _.camelCase(text);
-
-const inverseCamelLodash = (text) =>
-  _.startCase(text.replace(/([A-Z])/g, ' $1'));
+import {
+  camelLodash,
+  inverseCamelLodash,
+  isEmptyLodash,
+} from '../../../lib/lodash';
 
 const AddClientForm = (props) => {
-  const { formStructure, className, formik, handleClose } = props;
+  const { formStructure, className, formik } = props;
 
+  // if form has been touched & no errors then submit button is enabled, otherwise disabled.
   const isDisabled =
-    _.isEmpty(formik.touched) === false && _.isEmpty(formik.errors) === true
+    !isEmptyLodash(formik.touched) && isEmptyLodash(formik.errors)
       ? false
       : true;
 
@@ -47,9 +48,6 @@ const AddClientForm = (props) => {
       ))}
 
       <Stack className='justify-content-end' direction='horizontal' gap={2}>
-        <Button variant='secondary' size='md' onClick={handleClose}>
-          Close
-        </Button>
         <Button
           className={`${isDisabled ? 'disabled' : ''}`}
           type='submit'

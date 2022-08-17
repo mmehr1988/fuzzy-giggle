@@ -1,85 +1,27 @@
 // ======================================
 // EXTERNAL
 // ======================================
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 import { useFormik } from 'formik';
-import * as yup from 'yup';
 
 import { FaUser } from 'react-icons/fa';
 // Bootstrap
-import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-
-// lodash
-import _ from 'lodash';
 
 // ======================================
 // INTERNAL
 // ======================================
-
+import ModalForm from '../ModalForm';
 import AddClientForm from './AddClientForm';
 import { ADD_CLIENT } from '../../../mutations/clientMutations';
 import { GET_CLIENTS } from '../../../queries/clientQueries';
-
-// =============================================
-// LODASH DEBOUNCE
-// =============================================
-const debounceCustom = _.debounce((callback) => {
-  callback();
-}, 300);
-
-// =============================================
-// INITIAL VALUES
-// =============================================
-
-const schema = yup.object().shape({
-  firstName: yup.string().required('First name is required'),
-  lastName: yup.string().required('Last name is required'),
-  email: yup
-    .string()
-    .email('Invalid email address')
-    .required('Email is required'),
-  phone: yup.string().required('Phone number is required'),
-});
-
-// IMPORTANT For both Reducer and Form Validation
-const initialFormValues = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  phone: '',
-};
-
-// ======================================
-// FORM DATA
-// ======================================
-const formStructure = [
-  {
-    id: 'app__addClientForm-firstName',
-    type: 'text',
-    name: 'firstName',
-    placeholder: 'John',
-  },
-  {
-    id: 'app__addClientForm-lastName',
-    type: 'text',
-    name: 'lastName',
-    placeholder: 'Doe',
-  },
-  {
-    id: 'app__addClientForm-email',
-    type: 'email',
-    name: 'email',
-    placeholder: 'email@example.com',
-  },
-  {
-    id: 'app__addClientForm-phone',
-    type: 'text',
-    name: 'phone',
-    placeholder: 'xxx-xxx-xxxx',
-  },
-];
+import { debounceCustom } from '../../../lib/lodash';
+import {
+  ClientFormInitialValues,
+  ClientFormSchema,
+  ClientFormStructure,
+} from './ClientFormStructure';
 
 const AddClientModal = () => {
   // ======================================
@@ -108,21 +50,24 @@ const AddClientModal = () => {
   const handleShow = () => setShow(true);
 
   // =============================================
-  // FORMIK
+  // HANDLE FORM SUBMIT | FORMIK
   // =============================================
 
   const formik = useFormik({
-    initialValues: initialFormValues,
-    validationSchema: schema,
+    initialValues: ClientFormInitialValues,
+    validationSchema: ClientFormSchema,
     onSubmit: (values) => {
       addClient({ variables: values });
 
-      debounceCustom(() => {
-        formik.handleReset();
-        handleClose();
-      });
+      // Close the modal
+      debounceCustom(() => handleHide());
     },
   });
+
+  const handleHide = useCallback(() => {
+    formik.handleReset();
+    handleClose();
+  }, [formik]);
 
   return (
     <>
@@ -133,25 +78,14 @@ const AddClientModal = () => {
         </div>
       </Button>
 
-      <Modal
-        show={show}
-        onHide={() => {
-          formik.handleReset();
-          handleClose();
-        }}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Add Client</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <AddClientForm
-            formStructure={formStructure}
-            formik={formik}
-            className='app__addClientForm'
-            handleClose={handleClose}
-          />
-        </Modal.Body>
-      </Modal>
+      <ModalForm show={show} onHide={handleHide} modalTitle='Add Client'>
+        <AddClientForm
+          formStructure={ClientFormStructure}
+          formik={formik}
+          className='app__addClientForm'
+          handleClose={handleClose}
+        />
+      </ModalForm>
     </>
   );
 };
