@@ -1,3 +1,6 @@
+// ======================================
+// EXTERNAL
+// ======================================
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
@@ -10,7 +13,7 @@ const ProjectCard = (props) => {
       <Card>
         <Card.Body className='d-flex justify-content-between align-items-center pb-1 pt-3'>
           <Card.Title>{project.name}</Card.Title>
-          <Button href={`/projects/${project.id}`} variant='light'>
+          <Button href={`/project/${project.id}`} variant='light'>
             View
           </Button>
         </Card.Body>

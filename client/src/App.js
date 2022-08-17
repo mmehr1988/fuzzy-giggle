@@ -16,6 +16,7 @@ import Container from 'react-bootstrap/esm/Container';
 import './scss/app.scss';
 import Header from './components/Header/Header';
 import Home from './pages/Home';
+import Project from './pages/Project';
 import NotFound from './pages/NotFound';
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
       <Container>
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/project/:id' element={<Project />} />
           {/* REDIRECT & PAGE NOT FOUND */}
           <Route path='/home' element={<Navigate to='/' />} />
           <Route path='*' element={<NotFound />} />
