@@ -74,7 +74,6 @@ const Project = () => {
                 <EditProjectModal project={data.project} />
                 <DeleteProjectButton projectId={data.project.id} />
               </Stack>
-              {/* EDIT PROJECT FORM */}
             </Stack>
           </Card.Body>
         </Card>
