@@ -8,6 +8,8 @@ import { useFormik } from 'formik';
 // Bootstrap
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
+
+// Icon
 import { FaList } from 'react-icons/fa';
 
 // ======================================
@@ -26,6 +28,8 @@ import {
   ProjectFormStructure,
 } from './ProjectFormStructure';
 
+import ToastAlert from '../../Toast/ToastAlert';
+
 const AddProjectModal = () => {
   // ======================================
   // STATE
@@ -34,6 +38,7 @@ const AddProjectModal = () => {
   const [clients, setClients] = useState([]);
   const [formStructure, setFormStructure] = useState([]);
 
+  const [showToast, setShowToast] = useState(false);
   // ======================================
   // GRAPHQL
   // ======================================
@@ -58,9 +63,7 @@ const AddProjectModal = () => {
   // ======================================
   const handleClose = () => setShow(false);
   const handleShow = () =>
-    data.clients.length > 0
-      ? setShow(true)
-      : alert('You must add a client first');
+    data.clients.length > 0 ? setShow(true) : setShowToast(true);
 
   // =============================================
   // HANDLE FORM SUBMIT | FORMIK
@@ -143,6 +146,14 @@ const AddProjectModal = () => {
           />
         </ModalForm>
       )}
+      <ToastAlert
+        onClose={() => setShowToast(false)}
+        show={showToast}
+        variant='danger'
+        delay={2000}
+      >
+        Add client first before adding a project.
+      </ToastAlert>
     </>
   );
 };
