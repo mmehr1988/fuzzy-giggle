@@ -208,6 +208,7 @@ const mutation = new GraphQLObjectType({
             },
           }),
         },
+        clientId: { type: GraphQLString },
       },
       resolve(parent, args) {
         // Find the project by the id and then update it
@@ -218,6 +219,7 @@ const mutation = new GraphQLObjectType({
               name: args.name,
               description: args.description,
               status: args.status,
+              clientId: args.clientId,
             },
           },
           { new: true }

@@ -14,6 +14,12 @@ export const ProjectFormSchema = yup.object().shape({
   clientId: yup.string().required('Client is required'),
 });
 
+export const FormStatusOptionsArray = [
+  { id: 'new', text: 'Not Started' },
+  { id: 'progress', text: 'In Progress' },
+  { id: 'completed', text: 'Completed' },
+];
+
 export const ProjectFormStructure = [
   {
     id: 'app__addProjectForm-name',
@@ -25,23 +31,19 @@ export const ProjectFormStructure = [
     id: 'app__addProjectForm-description',
     type: 'text',
     name: 'description',
-    as: 'input',
+    as: 'textarea',
   },
   {
     id: 'app__addProjectForm-status',
     name: 'status',
     as: 'select',
-    options: [
-      { value: 'new', text: 'Not Started' },
-      { value: 'progress', text: 'In Progress' },
-      { value: 'completed', text: 'Completed' },
-    ],
+    options: FormStatusOptionsArray,
   },
   {
     id: 'app__addProjectForm-client',
     label: 'Client',
     name: 'clientId',
     as: 'select',
-    options: [{ value: '', text: 'Please select a client' }],
+    options: [{ id: 'default', text: 'Please select a client' }],
   },
 ];

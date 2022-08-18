@@ -5,9 +5,10 @@ import { useState, useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 import { useFormik } from 'formik';
 
-import { FaUser } from 'react-icons/fa';
 // Bootstrap
 import Button from 'react-bootstrap/Button';
+import Stack from 'react-bootstrap/Stack';
+import { FaUser } from 'react-icons/fa';
 
 // ======================================
 // INTERNAL
@@ -72,10 +73,14 @@ const AddClientModal = () => {
   return (
     <>
       <Button variant='secondary' onClick={handleShow} className='mt-3'>
-        <div className='d-flex align-items-center'>
-          <FaUser className='icon' />
+        <Stack
+          className='justify-content-start align-items-center'
+          direction='horizontal'
+          gap={2}
+        >
+          <FaUser />
           <div>Add Client</div>
-        </div>
+        </Stack>
       </Button>
 
       <ModalForm show={show} onHide={handleHide} modalTitle='Add Client'>

@@ -36,4 +36,5 @@ export const camelLodash = (text) => _.camelCase(text);
 export const inverseCamelLodash = (text) =>
   _.startCase(text.replace(/([A-Z])/g, ' $1'));
 
+// To Check if object is empty
 export const isEmptyLodash = (text) => _.isEmpty(text);

@@ -20,19 +20,19 @@ import {
 // FORM OPTION
 // ======================================
 
-const FormOption = ({ options }) => {
-  return options.map((option, i) => {
-    return option.id === 'default' ? (
+const FormOption = ({ options, currentValue }) => {
+  return options.map((option, i) =>
+    option.id === 'default' ? (
       <option key={i}>{option.text}</option>
     ) : (
       <option key={i} value={option.id}>
         {option.text}
       </option>
-    );
-  });
+    )
+  );
 };
 
-const AddProjectForm = (props) => {
+const EditProjectForm = (props) => {
   const { formStructure, className, formik } = props;
 
   // if form has been touched & no errors then submit button is enabled, otherwise disabled.
@@ -80,13 +80,7 @@ const AddProjectForm = (props) => {
       ))}
 
       <Stack className='justify-content-end' direction='horizontal' gap={2}>
-        <Button
-          className={`${isDisabled ? 'disabled' : ''}`}
-          type='submit'
-          variant='primary'
-          size='md'
-          disabled={isDisabled}
-        >
+        <Button type='submit' variant='primary' size='md' disabled={isDisabled}>
           Submit
         </Button>
       </Stack>
@@ -94,9 +88,9 @@ const AddProjectForm = (props) => {
   );
 };
 
-AddProjectForm.propTypes = {
+EditProjectForm.propTypes = {
   formStructure: PropTypes.arrayOf(PropTypes.object),
   formik: PropTypes.object.isRequired,
 };
 
-export default AddProjectForm;
+export default EditProjectForm;

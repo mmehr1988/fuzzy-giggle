@@ -6,14 +6,14 @@ export const GET_PROJECTS = gql`
       id
       name
       status
-      # description
-      # client {
-      #   id
-      #   firstName
-      #   lastName
-      #   email
-      #   phone
-      # }
+      description
+      client {
+        id
+        firstName
+        lastName
+        email
+        phone
+      }
     }
   }
 `;

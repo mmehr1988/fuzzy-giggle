@@ -13,6 +13,8 @@ import Button from 'react-bootstrap/Button';
 import { GET_PROJECT } from '../queries/projectQueries';
 import Loading from '../components/Loading/Loading';
 import ClientInfo from '../components/Clients/ClientInfo/ClientInfo';
+import DeleteProjectButton from '../components/Button/DeleteProjectButton';
+import EditProjectModal from '../components/Modal/EditProject/EditProjectModal';
 
 const Project = () => {
   // Using the useParams hook to get the id from the url
@@ -62,6 +64,17 @@ const Project = () => {
                 <Card.Text className='mb-0'>{data.project.status}</Card.Text>
               </Stack>
               <ClientInfo client={data.project.client} />
+
+              {/* DELETE PROJECT BUTTON */}
+              <Stack
+                className='justify-content-end'
+                gap={3}
+                direction='horizontal'
+              >
+                <EditProjectModal project={data.project} />
+                <DeleteProjectButton projectId={data.project.id} />
+              </Stack>
+              {/* EDIT PROJECT FORM */}
             </Stack>
           </Card.Body>
         </Card>
