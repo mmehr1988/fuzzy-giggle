@@ -23,7 +23,10 @@ import {
 const FormOption = ({ options, currentValue }) => {
   return options.map((option, i) =>
     option.id === 'default' ? (
-      <option key={i}>{option.text}</option>
+      // if option is a default, hide it after selection.
+      <option key={i} value={''} disabled hidden>
+        {option.text}
+      </option>
     ) : (
       <option key={i} value={option.id}>
         {option.text}
@@ -60,7 +63,11 @@ const EditProjectForm = (props) => {
             />
           ) : (
             <Form.Select
-              aria-label='Select project status'
+              aria-label={`'Select project ${
+                item.label
+                  ? item.label.toLowerCase()
+                  : inverseCamelLodash(item.name).toLowerCase()
+              }'`}
               name={camelLodash(item.name)}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}

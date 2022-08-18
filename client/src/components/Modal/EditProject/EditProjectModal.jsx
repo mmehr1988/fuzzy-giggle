@@ -132,6 +132,7 @@ const EditProjectModal = (props) => {
   }, [data]);
 
   // [2] - UPDATE FORM STRUCTURE
+  // [2] - UPDATE FORM STRUCTURE
   useEffect(() => {
     // Check if client state is updated
     if (clients.length > 0) {
@@ -139,9 +140,24 @@ const EditProjectModal = (props) => {
       const structureArray = ProjectFormStructure;
 
       // Add the new client array to the structure array
-      structureArray.map((field) =>
-        field.name === 'clientId' ? field.options.push(...clients) : field
-      );
+      structureArray.forEach((field) => {
+        if (field.name !== 'clientId') {
+          return field;
+        } else {
+          // For each client,
+          clients.forEach((client) => {
+            // Check if structure array field optiopns already has the client id
+            const clientExists = field.options.some(
+              (item) => item.id === client.id
+            );
+
+            // only add new clients to the options array
+            if (!clientExists) {
+              return field.options.push(...clients);
+            }
+          });
+        }
+      });
 
       // setStructure Array to the new structure array
       setFormStructure(structureArray);

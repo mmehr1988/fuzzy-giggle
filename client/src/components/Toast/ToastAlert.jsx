@@ -34,7 +34,7 @@ const ToastAlert = (props) => {
 
 ToastAlert.propTypes = {
   onClose: PropTypes.func.isRequired,
-  show: PropTypes.string.isRequired,
+  show: PropTypes.bool.isRequired,
 };
 
 export default ToastAlert;
