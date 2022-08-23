@@ -59,7 +59,7 @@ const EditProjectModal = ({ project }) => {
   // =============================================
 
   const onSubmit = (values, onSubmitProps) => {
-    // ADD PROJECT
+    // update project in database
     updateProject({
       variables: {
         id: project.id,

@@ -73,6 +73,8 @@ const AddProjectForm = (props) => {
               name='status'
               options={projectStatusOptions}
             />
+
+            {/* CLIENT SELECT */}
             <FormikControl
               control='select'
               label='Client'
@@ -80,6 +82,7 @@ const AddProjectForm = (props) => {
               options={clients}
             />
 
+            {/* SUBMIT BUTTON */}
             <Button
               variant='primary'
               type='submit'

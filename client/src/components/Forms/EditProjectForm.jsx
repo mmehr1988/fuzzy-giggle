@@ -96,6 +96,8 @@ const EditProjectForm = ({ project, clients, onSubmit }) => {
               name='status'
               options={projectStatusOptions}
             />
+
+            {/* CLIENT SELECT */}
             <FormikControl
               control='select'
               label='Client'
@@ -103,6 +105,7 @@ const EditProjectForm = ({ project, clients, onSubmit }) => {
               options={clients}
             />
 
+            {/* SUBMIT BUTTON */}
             <Button
               variant='primary'
               type='submit'
