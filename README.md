@@ -56,13 +56,13 @@ For the frontend, this app uses [Apollo Client](https://www.apollographql.com/do
 
 ### 2. Connect Database to MongoDB + Atlas
 
-- Use [Mongoose](https://www.npmjs.com/package/mongoose) to connect to [MongoDB](https://www.mongodb.com/atlas/database)
+- Use [mongoose](https://www.npmjs.com/package/mongoose) to connect to [mongodb](https://www.mongodb.com/atlas/database)
 - Create database models
 
 ### 3. Create Front-End
 
-- Use [Apollo Client](https://www.apollographql.com/docs/react/) to query our api
-- Use [React Bootstrap](https://react-bootstrap.netlify.app/) for the UI/UX.
+- Use [apollo client](https://www.apollographql.com/docs/react/) to query our api
+- Use [react bootstrap](https://react-bootstrap.netlify.app/) for the UI/UX.
 - Use [formik](https://www.npmjs.com/package/formik) + [yup](https://www.npmjs.com/package/yup) for form creation and validation.
 
 ## License
