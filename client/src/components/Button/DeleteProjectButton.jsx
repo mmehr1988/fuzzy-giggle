@@ -14,8 +14,7 @@ import { FaTrash } from 'react-icons/fa';
 // INTERNAL
 // ======================================
 
-import { DELETE_PROJECT } from '../../mutations/projectMutations';
-import { GET_PROJECTS } from '../../queries/projectQueries';
+import { GET_PROJECTS, DELETE_PROJECT } from '../../graphql';
 
 const DeleteProjectButton = (props) => {
   const { projectId } = props;

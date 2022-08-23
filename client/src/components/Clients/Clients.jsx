@@ -7,9 +7,9 @@ import Table from 'react-bootstrap/Table';
 // ======================================
 // INTERNAL
 // ======================================
-import { GET_CLIENTS } from '../../queries/clientQueries';
-import Loading from '../Loading/Loading';
-import ClientRow from './ClientRow/ClientRow';
+import { GET_CLIENTS } from '../../graphql';
+import { Loading } from '../Loading';
+import ClientRow from './ClientRow';
 
 const Clients = () => {
   const { loading, error, data } = useQuery(GET_CLIENTS);

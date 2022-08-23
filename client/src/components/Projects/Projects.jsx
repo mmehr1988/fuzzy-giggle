@@ -7,8 +7,8 @@ import Row from 'react-bootstrap/Row';
 // ======================================
 // INTERNAL
 // ======================================
-import { GET_PROJECTS } from '../../queries/projectQueries';
-import Loading from '../Loading/Loading';
+import { GET_PROJECTS } from '../../graphql';
+import { Loading } from '../Loading';
 import ProjectCard from './ProjectCard';
 
 const Projects = () => {

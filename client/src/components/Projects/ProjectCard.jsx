@@ -1,9 +1,14 @@
 // ======================================
 // EXTERNAL
 // ======================================
-import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
+
+// ======================================
+// INTERNAL
+// ======================================
+
+import { ViewProjectButton } from '../Button';
 
 const ProjectCard = (props) => {
   const { project } = props;
@@ -13,9 +18,7 @@ const ProjectCard = (props) => {
       <Card>
         <Card.Body className='d-flex justify-content-between align-items-center pb-1 pt-3'>
           <Card.Title>{project.name}</Card.Title>
-          <Button href={`/project/${project.id}`} variant='light'>
-            View
-          </Button>
+          <ViewProjectButton projectId={project.id} />
         </Card.Body>
         <Card.Body className='pb-3 pt-1'>
           <Card.Text>

@@ -8,16 +8,14 @@ import {
   Routes,
   Navigate,
 } from 'react-router-dom';
-import Container from 'react-bootstrap/esm/Container';
 
+import Container from 'react-bootstrap/Container';
 // ======================================
 // INTERNAL
 // ======================================
 import './scss/app.scss';
-import Header from './components/Header/Header';
-import Home from './pages/Home';
-import Project from './pages/Project';
-import NotFound from './pages/NotFound';
+import { Header } from './components';
+import { Home, Project, NotFound } from './pages';
 
 const App = () => {
   return (

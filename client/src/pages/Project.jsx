@@ -10,11 +10,13 @@ import Button from 'react-bootstrap/Button';
 // ======================================
 // INTERNAL
 // ======================================
-import { GET_PROJECT } from '../queries/projectQueries';
-import Loading from '../components/Loading/Loading';
-import ClientInfo from '../components/Clients/ClientInfo/ClientInfo';
-import DeleteProjectButton from '../components/Button/DeleteProjectButton';
-import EditProjectModal from '../components/Modal/EditProject/EditProjectModal';
+import { GET_PROJECT } from '../graphql';
+import {
+  Loading,
+  ClientInfo,
+  DeleteProjectButton,
+  EditProjectModal,
+} from '../components';
 
 const Project = () => {
   // Using the useParams hook to get the id from the url

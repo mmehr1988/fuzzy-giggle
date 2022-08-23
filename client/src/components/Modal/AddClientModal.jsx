@@ -1,9 +1,8 @@
 // ======================================
 // EXTERNAL
 // ======================================
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { useFormik } from 'formik';
 
 // Bootstrap
 import Button from 'react-bootstrap/Button';
@@ -13,16 +12,10 @@ import { FaUser } from 'react-icons/fa';
 // ======================================
 // INTERNAL
 // ======================================
-import ModalForm from '../ModalForm';
-import AddClientForm from './AddClientForm';
-import { ADD_CLIENT } from '../../../mutations/clientMutations';
-import { GET_CLIENTS } from '../../../queries/clientQueries';
-import { debounceCustom } from '../../../lib/lodash';
-import {
-  ClientFormInitialValues,
-  ClientFormSchema,
-  ClientFormStructure,
-} from './ClientFormStructure';
+import ModalForm from './ModalForm';
+import { GET_CLIENTS, ADD_CLIENT } from '../../graphql';
+import { AddClientForm } from '../Forms';
+import { debounceCustom } from '../../lib';
 
 const AddClientModal = () => {
   // ======================================
@@ -51,24 +44,19 @@ const AddClientModal = () => {
   const handleShow = () => setShow(true);
 
   // =============================================
-  // HANDLE FORM SUBMIT | FORMIK
+  // HANDLE | FORM SUBMIT
   // =============================================
 
-  const formik = useFormik({
-    initialValues: ClientFormInitialValues,
-    validationSchema: ClientFormSchema,
-    onSubmit: (values) => {
-      addClient({ variables: values });
+  const onSubmit = (values, onSubmitProps) => {
+    // Add client to the database
+    addClient({ variables: values });
 
-      // Close the modal
-      debounceCustom(() => handleHide());
-    },
-  });
+    // Set Formik submit to false so it does not submit again.
+    onSubmitProps.setSubmitting(false);
 
-  const handleHide = useCallback(() => {
-    formik.handleReset();
-    handleClose();
-  }, [formik]);
+    // close the modal with a little delay
+    debounceCustom(() => handleClose());
+  };
 
   return (
     <>
@@ -83,13 +71,8 @@ const AddClientModal = () => {
         </Stack>
       </Button>
 
-      <ModalForm show={show} onHide={handleHide} modalTitle='Add Client'>
-        <AddClientForm
-          formStructure={ClientFormStructure}
-          formik={formik}
-          className='app__addClientForm'
-          handleClose={handleClose}
-        />
+      <ModalForm show={show} onHide={handleClose} modalTitle='Add Client'>
+        <AddClientForm onSubmit={onSubmit} />
       </ModalForm>
     </>
   );

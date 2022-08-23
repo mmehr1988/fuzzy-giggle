@@ -7,10 +7,9 @@ import PropTypes from 'prop-types';
 // ======================================
 // INTERNAL
 // ======================================
-import { DELETE_CLIENT } from '../../../mutations/clientMutations';
-import { GET_CLIENTS } from '../../../queries/clientQueries';
-import { GET_PROJECTS } from '../../../queries/projectQueries';
-import DeleteClientButton from '../../Button/DeleteClientButton';
+
+import { GET_CLIENTS, GET_PROJECTS, DELETE_CLIENT } from '../../graphql';
+import { DeleteClientButton } from '../Button';
 
 const ClientRow = ({ client }) => {
   const { id, firstName, lastName, email, phone } = client;
