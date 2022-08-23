@@ -2,9 +2,9 @@
 
 ## Project: Project Management App
 
-<a href="https://choosealicense.com/licenses/mit" target="_blank"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a>
+[![image](https://img.shields.io/badge/License-MIT-yellow.svg)](https://choosealicense.com/licenses/mit)
 
-## Table of Contents:
+## Table of Contents
 
 1. [Description](#description)
 1. [Technologies](#technologies)
@@ -16,7 +16,9 @@
 
 A simple project management system that has full CRUD functionality. Users can add their projects, connect projects to clients, and a page which shows all the information including the client information as well as an area to update the details.
 
-For the backend, the app uses GraphQL & Express along with MongoDB for database management. For the frontend, the app uses Apollo Client.
+For the backend, this app uses [GraphQL](https://www.npmjs.com/package/graphql) & [Express](https://www.npmjs.com/package/express) along with [MongoDB](https://www.mongodb.com/atlas/database) for database management.
+
+For the frontend, this app uses [Apollo Client](https://www.apollographql.com/docs/react/) to interact with the backend and [React Bootstrap](https://react-bootstrap.netlify.app/) for the UI/UX.
 
 ## Technologies
 
@@ -28,8 +30,10 @@ For the backend, the app uses GraphQL & Express along with MongoDB for database 
    - [cors](https://www.npmjs.com/package/cors)
    - [express](https://www.npmjs.com/package/express)
    - [express-graphql](https://www.npmjs.com/package/express-graphql)
+   - [formik](https://www.npmjs.com/package/formik)
    - [graphql](https://www.npmjs.com/package/graphql)
    - [mongoose](https://www.npmjs.com/package/mongoose)
+   - [yup](https://www.npmjs.com/package/yup)
 
    b. devDependencies
 
@@ -38,31 +42,32 @@ For the backend, the app uses GraphQL & Express along with MongoDB for database 
 
 2. CSS Framework
 
-   a. [Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
+   a. [React Bootstrap](https://react-bootstrap.netlify.app/)
 
 ## Initial Steps
 
 ### 1. Server Setup
 
-- Create express server
-  - Initialize express and setup port
+- Create [express](https://www.npmjs.com/package/express) server
+  - Initialize [express](https://www.npmjs.com/package/express) and setup port
   - Create dummy dataset to use
-  - Setup graphql endpoints
+  - Setup [graphql](https://www.npmjs.com/package/graphql) endpoints
   - Create schema for queries
 
 ### 2. Connect Database to MongoDB + Atlas
 
-- Use Mongoose to connect to MongoDB
+- Use [Mongoose](https://www.npmjs.com/package/mongoose) to connect to [MongoDB](https://www.mongodb.com/atlas/database)
 - Create database models
 
 ### 3. Create Front-End
 
-- Use apollo client to query our graphql api
-- Use bootstrap for the ui an styling
+- Use [Apollo Client](https://www.apollographql.com/docs/react/) to query our api
+- Use [React Bootstrap](https://react-bootstrap.netlify.app/) for the UI/UX.
+- Use [formik](https://www.npmjs.com/package/formik) + [yup](https://www.npmjs.com/package/yup) for form creation and validation.
 
 ## License
 
-<a href="https://choosealicense.com/licenses/mit" target="_blank">MIT License</a>
+[MIT License](https://choosealicense.com/licenses/mit)
 
 ## Questions
 
