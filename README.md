@@ -9,6 +9,7 @@
 1. [Description](#description)
 1. [Technologies](#technologies)
 1. [Initial Steps](#initial-steps)
+1. [Learnings](#learnings)
 1. [License](#license)
 1. [Questions](#questions)
 
@@ -64,6 +65,13 @@ For the frontend, this app uses [Apollo Client](https://www.apollographql.com/do
 - Use [apollo client](https://www.apollographql.com/docs/react/) to query our api
 - Use [react bootstrap](https://react-bootstrap.netlify.app/) for the UI/UX.
 - Use [formik](https://www.npmjs.com/package/formik) + [yup](https://www.npmjs.com/package/yup) for form creation and validation.
+
+## Learnings
+
+### 1. Dotenv Issues When Deploying To Heroku
+
+- Issue: While trying to deploy to Heroku, the issue that continued to arise was errors around connecting to the database.
+- Solution: Since this app uses environment variables to connect to mongodb, using the dotenv package made this process seemless. However, the dotenv package was installed as a devDependencies, and Heroku was not installing it as a package. This resulted in errors when deploying to Heroku. The fix was to simply install the package as a dependency.
 
 ## License
 
