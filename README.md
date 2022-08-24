@@ -1,4 +1,4 @@
-# fuzz-giggle
+# fuzzy-giggle
 
 ## Project: Project Management App
 
