@@ -5,21 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
-    "dev": "nodemon server/index.js"
+    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "build": "cd client && npm run build"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "colors": "^1.4.0",
-    "cors": "^2.8.5",
-    "express": "^4.18.1",
-    "express-graphql": "^0.12.0",
-    "graphql": "^15.8.0",
-    "mongoose": "^6.5.2"
-  },
-  "devDependencies": {
-    "dotenv": "^16.0.1",
-    "nodemon": "^2.0.19"
+    "concurrently": "^7.3.0"
   }
 }
