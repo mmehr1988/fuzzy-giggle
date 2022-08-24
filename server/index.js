@@ -37,11 +37,13 @@ app.use(
   })
 );
 
-// if we're in production, serve public folder as static assets
-app.use(express.static('public'));
+// if we're in production, serve client/build as static assets
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+}
 
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
 // Create a LISTEN
