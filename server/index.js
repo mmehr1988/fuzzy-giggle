@@ -2,6 +2,7 @@
 const express = require('express');
 const colors = require('colors');
 const cors = require('cors');
+const path = require('path');
 
 // ======================================
 // PORT SETUP
@@ -35,6 +36,13 @@ app.use(
     graphiql: process.env.NODE_ENV === 'development',
   })
 );
+
+// if we're in production, serve public folder as static assets
+app.use(express.static('public'));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+});
 
 // Create a LISTEN
 app.listen(
