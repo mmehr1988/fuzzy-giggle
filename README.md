@@ -21,6 +21,8 @@ For the backend, this app uses [GraphQL](https://www.npmjs.com/package/graphql) 
 
 For the frontend, this app uses [Apollo Client](https://www.apollographql.com/docs/react/) to interact with the backend and [React Bootstrap](https://react-bootstrap.netlify.app/) for the UI/UX.
 
+To view the final app deployed on Heroku, please click on the following [link](https://mighty-ravine-00424.herokuapp.com/).
+
 ## Technologies
 
 1. [Node.js](https://www.npmjs.com/package/inquirer) Packages
