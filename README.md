@@ -25,11 +25,13 @@ To view the final app deployed on Heroku, please click on the following [link](h
 
 ## Technologies
 
-1. [Node.js](https://www.npmjs.com/package/inquirer) Packages
+1. [Node.js](https://nodejs.org/en/) Packages
 
    a. Dependencies
 
    - [colors](https://www.npmjs.com/package/colors)
+   - [concurrently](https://www.npmjs.com/package/concurrently)
+   - [dotenv](https://www.npmjs.com/package/dotenv)
    - [cors](https://www.npmjs.com/package/cors)
    - [express](https://www.npmjs.com/package/express)
    - [express-graphql](https://www.npmjs.com/package/express-graphql)
@@ -40,7 +42,6 @@ To view the final app deployed on Heroku, please click on the following [link](h
 
    b. devDependencies
 
-   - [dotenv](https://www.npmjs.com/package/dotenv)
    - [nodemon](https://www.npmjs.com/package/nodemon)
 
 2. CSS Framework
@@ -81,4 +82,4 @@ To view the final app deployed on Heroku, please click on the following [link](h
 
 ## Questions
 
-Github Portfolio Link: [Mehdi Mehrabani](https://github.com/mmehr1988)<br>
+Github Portfolio Link: [Mehdi Mehrabani](https://github.com/mmehr1988)
